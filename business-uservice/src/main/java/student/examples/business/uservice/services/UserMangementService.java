@@ -1,5 +1,7 @@
 package student.examples.business.uservice.services;
 
+import java.util.Base64;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,15 @@ public class UserMangementService {
 		
 		return null;
 	}
+	
+	public static String encodeToBase64(String originalString) {
+        byte[] encodedBytes = Base64.getEncoder().encode(originalString.getBytes());
+        return new String(encodedBytes);
+    }
+
+    public static String decodeFromBase64(String base64String) {
+        byte[] decodedBytes = Base64.getDecoder().decode(base64String);
+        return new String(decodedBytes);
+    }
 
 }

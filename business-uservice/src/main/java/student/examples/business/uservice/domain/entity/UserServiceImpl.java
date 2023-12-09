@@ -45,7 +45,7 @@ public class UserServiceImpl extends UserSignupServiceGrpc.UserSignupServiceImpl
 		userEntity.setEmail(request.getEmail());
 		userEntity.setPassword(encrypt(request.getPassword()));
 		//Did not user encrypt() because when sending email the '+' is cut and the token is not the same
-		userEntity.setToken(encodeToBase64(request.getId()));
+		userEntity.setToken(encodeToBase64(request.getId() + request.getEmail()));//uuid plus email
 		userEntity.setActive(false);
 
 		UserSignupResponse response = UserSignupResponse.newBuilder()
