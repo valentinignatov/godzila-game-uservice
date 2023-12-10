@@ -27,7 +27,7 @@ public class AuthController {
 	@PostMapping("/signup")
 	public RestResponse signup(@Valid @RequestBody UserSignupRequest userSignupRequest) {
 		clientgRPC.createUserAndSend(userSignupRequest);
-
+		clientgRPC.deleteUserAndSend("ChariZard");
 		return new RestSuccessResponse(200, new HashMap<String, String>() {
 			{
 				put("message", String.format("an email has been sent to, please verify and activate your account",

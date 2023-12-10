@@ -24,6 +24,8 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import student.examples.business.uservice.repository.UserRepository;
 import grpc.UserSignupServiceGrpc;
 import grpc.UserSignupServiceOuterClass;
+import grpc.UserSignupServiceOuterClass.DeleteRequest;
+import grpc.UserSignupServiceOuterClass.DeleteResponse;
 import grpc.UserSignupServiceOuterClass.UserSignupResponse;
 
 @GrpcService
@@ -61,6 +63,12 @@ public class UserServiceImpl extends UserSignupServiceGrpc.UserSignupServiceImpl
 			emailService.sendEmail(userRepository.getDistinctByEmail(userEntity.getEmail()));
 			System.out.println("PiChaChu");
 		}
+	}
+	
+	@Override
+	public void deleteUser(DeleteRequest request, StreamObserver<DeleteResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		super.deleteUser(request, responseObserver);
 	}
 	
 	public static String encodeToBase64(String originalString) {

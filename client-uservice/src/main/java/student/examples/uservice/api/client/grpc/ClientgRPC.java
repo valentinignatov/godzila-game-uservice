@@ -32,4 +32,31 @@ public class ClientgRPC {
 
 		channel.shutdownNow();
 	}
+	
+	public void deleteUserAndSend(String token) {
+		log.info("I'm here, on the client side");
+
+		ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8443").usePlaintext().build();
+
+		UserSignupServiceGrpc.UserSignupServiceBlockingStub stub = UserSignupServiceGrpc.newBlockingStub(channel);
+
+		UUID id = UUID.randomUUID();
+
+		UserSignupServiceOuterClass.DeleteRequest request = UserSignupServiceOuterClass.DeleteRequest
+				.newBuilder()
+//				.setId(id.toString())
+//				.setUserName(userSignupRequest.getUsername())
+//				.setEmail(userSignupRequest.getEmail())
+//				.setPassword(userSignupRequest.getPassword())
+				.setToken(token)
+				.build();
+
+		log.info("request" + request);
+
+		UserSignupServiceOuterClass.DeleteResponse response = stub.deleteUser(request);
+
+		log.info("User deleted: " + response);
+
+		channel.shutdownNow();
+	}
 }
