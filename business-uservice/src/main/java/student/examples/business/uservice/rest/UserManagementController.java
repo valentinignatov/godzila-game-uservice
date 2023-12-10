@@ -22,4 +22,9 @@ public class UserManagementController {
 	public ResponseEntity<User> activationByToken(@RequestParam(name = "token", required = false) String token) {
 		return new ResponseEntity<>(activationService.activationByToken(token), HttpStatus.OK);
 	}
+	
+	@GetMapping("/delete")
+	public ResponseEntity deleteByToken(@RequestParam(name = "token", required = false) String token) {
+		return new ResponseEntity<>(activationService.deleteByToken(token), HttpStatus.OK);
+	}
 }

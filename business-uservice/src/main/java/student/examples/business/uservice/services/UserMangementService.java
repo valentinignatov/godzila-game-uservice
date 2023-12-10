@@ -25,6 +25,17 @@ public class UserMangementService {
 		return null;
 	}
 	
+	public boolean deleteByToken(String token) {
+		User userByToken = userRepository.getUserByToken(token).stream().findFirst().get();
+		
+		if (userByToken != null) {
+			userRepository.delete(userByToken);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public static String encodeToBase64(String originalString) {
         byte[] encodedBytes = Base64.getEncoder().encode(originalString.getBytes());
         return new String(encodedBytes);

@@ -33,7 +33,7 @@ public class ClientgRPC {
 		channel.shutdownNow();
 	}
 	
-	public void deleteUserAndSend(String token) {
+	public String deleteUserAndSend(String token) {
 		log.info("I'm here, on the client side");
 
 		ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:8443").usePlaintext().build();
@@ -44,10 +44,6 @@ public class ClientgRPC {
 
 		UserSignupServiceOuterClass.DeleteRequest request = UserSignupServiceOuterClass.DeleteRequest
 				.newBuilder()
-//				.setId(id.toString())
-//				.setUserName(userSignupRequest.getUsername())
-//				.setEmail(userSignupRequest.getEmail())
-//				.setPassword(userSignupRequest.getPassword())
 				.setToken(token)
 				.build();
 
@@ -58,5 +54,7 @@ public class ClientgRPC {
 		log.info("User deleted: " + response);
 
 		channel.shutdownNow();
+		
+		return response.getUser();
 	}
 }

@@ -61,14 +61,22 @@ public class UserServiceImpl extends UserSignupServiceGrpc.UserSignupServiceImpl
 		
 		if (saved != null) {
 			emailService.sendEmail(userRepository.getDistinctByEmail(userEntity.getEmail()));
-			System.out.println("PiChaChu");
 		}
 	}
 	
 	@Override
 	public void deleteUser(DeleteRequest request, StreamObserver<DeleteResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		super.deleteUser(request, responseObserver);
+		System.out.println(request.getToken());
+		
+		emailService.sendDeleteEmail(userRepository.getUserByToken(request.getToken()).get());
+		
+		DeleteResponse deleteResponse = DeleteResponse.newBuilder()
+				.setUser("Email with delete confirmation send")
+				.build();
+		
+		responseObserver.onNext(deleteResponse);
+
+		responseObserver.onCompleted();
 	}
 	
 	public static String encodeToBase64(String originalString) {

@@ -15,9 +15,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
 	User getDistinctByEmail(String email);
 	
-//	@Query("select u from Users u where u.token like %?1")
 	Optional<User> getUserByToken(String token);
 	
-//	public void updateUserByToken(User user, String token);
+	void deleteByToken(String token);
 	
 }
